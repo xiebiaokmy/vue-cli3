@@ -114,7 +114,7 @@
                             <Radio label="4">下映</Radio>
                         </RadioGroup>
                     </FormItem>                                                           
-                    <FormItem label="电影简介">
+                    <FormItem label="电影简介1">
                         <Input v-model="editForm.synopsis" type="textarea" :autosize="{minRows: 3,maxRows: 6}" placeholder="请输入电影简介"></Input>
                     </FormItem>                    
                 </Form>
