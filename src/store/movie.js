@@ -36,16 +36,16 @@ const movies ={
     },    
     actions :{
        async getHotList(context){
-            const {data} = await post("/hotList")            
-            context.state.hotMovieList = data
+            const {data} = await post("movies/hotList")            
+            context.state.hotMovieList = data.data
         },
         async getCommingSoonList(context){
-            const {data} = await post("/commingSoonList")
-            context.state.commingSoonList = data
+            const {data} = await post("movies/commingSoonList")
+            context.state.commingSoonList = data.data
         },
         async getHistoryList(context){
-            const {data} = await post("/historyList")
-            context.state.historyList = data
+            const {data} = await post("movies/historyList")
+            context.state.historyList = data.data
         },
         //后台管理
         async addmovies(context,data){
@@ -53,6 +53,15 @@ const movies ={
             if(res.code == 200){
                 context.state.isShowAddModal = false
                 Message.success('新增电影成功');
+                let queryData = {
+                    curPage:context.state.curPage,
+                    eachPage:context.state.eachPage, 
+                    queryTerms:{
+                        fuzzySearchValue:"",
+                        fuzzyStatusValue:""
+                    }           
+                }
+                this.dispatch("movies/getMovieList",queryData)
             }
         },
         async getMovieList(context,data){
@@ -74,8 +83,21 @@ const movies ={
             if(res.code == 200){
                 Message.success('修改电影成功');
                 context.state.isShowEditModal = false
-                // getMovieList()
-                console.log(this)
+                let queryData = {
+                    curPage:context.state.curPage,
+                    eachPage:context.state.eachPage, 
+                    queryTerms:{
+                        fuzzySearchValue:"",
+                        fuzzyStatusValue:""
+                    }           
+                }
+                this.dispatch("movies/getMovieList",queryData)
+            }
+        },
+        async removeMovies(context,data){
+            const res = await post("movies/remove",data)
+            if(res.code == 200){
+                Message.success('删除电影成功');
                 let queryData = {
                     curPage:context.state.curPage,
                     eachPage:context.state.eachPage, 

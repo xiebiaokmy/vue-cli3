@@ -3,23 +3,29 @@
         <div class="header">
             <div class="auto">
                 <div class="auto-img">
-                    <img src="../../assets/liulangdiqiu.jpg" alt="">
+                    <img :src="movies.imgs.url" alt="">
                 </div>
                 <div class="detail-info">
                     <p class="movie-name">
-                        {{cName}}
+                        {{movies.cName}}
                     </p>
                     <p class="movie-type">
-                        {{type}}
+                        {{movies.type}}
                     </p>
                     <p class="region">
-                        {{region}}/{{duration}}
+                        {{movies.country}}/{{movies.duration}}(分钟)
                     </p>
                     <p class="release">
-                        {{releaseTime}}{{showingArea}}上映
+                        {{movies.release}}{{movies.country}}上映
                     </p>
                     <div class="rate">
-                        评分:<Rate disabled  allow-half v-model="valueHalf" />
+                        类型:{{movies.movieType}}
+                    </div>
+                    <div class="rate" style="margin:10px 0">
+                        导演:{{movies.director}}
+                    </div>
+                    <div class="rate">
+                        演员:{{movies.actors}}
                     </div>
                 </div>
             </div>
@@ -31,25 +37,8 @@
                         介绍
                     </div>
                     <p class="introduce">
-                        太阳即将毁灭，人类在地球表面建造出巨大的推进器，寻找新家园。然而宇宙之路危机四伏，为了拯救地球，为了人类能在漫长的2500年后抵达新的家园，流浪地球时代的年轻人挺身而出，展开争分夺秒的生死之战。
-                    </p>
-                    <div class="title">
-                        演职人员
-                    </div>
-                    <div class="director">
-                        <p>导演</p>
-                        <img src="../../assets/director.jpg" alt="">
-                    </div>
-                    <div class="performers">
-                        演员
-                        <div class="performersBox">
-                            <div class="eachperformer" v-for="(item,index) in performerList" :key="index">
-                                <img :src="item.url" alt="">
-                                <p>{{item.name}}</p>
-                                <p>饰:{{item.play}}</p>
-                            </div>
-                        </div>                        
-                    </div>
+                        {{movies.synopsis}}
+                    </p>                    
                 </TabPane>
                 <TabPane label="奖项" name="name3">                    
                     <div class="prize" v-for="(item,index) in prizeList" :key="index">
@@ -73,17 +62,25 @@
     </div>
 </template>
 <script>
+import {
+    post
+} from '../../tool/ajax.js'
 export default {
     name:"movieDetail",
     data(){
         return{
-            cName:"流浪地球",
-            type:"科技,冒险,动作",
-            region:"中国",
-            duration:"120分钟",
-            releaseTime:"2019-2-1",
-            showingArea:"大陆",
-            valueHalf: 2.5,
+            movies:{
+                imgs:{
+                    url:""
+                },
+                cName:"流浪地球",
+                type:"科技,冒险,动作",
+                country:"中国",
+                duration:"120分钟",
+                release:"2019-2-1",
+                showingArea:"大陆",
+                valueHalf: 2.5,
+            },            
             performerList:[
                 {   
                     url:"https://p1.meituan.net/movie/feea9fdcf930fe52f7c2a075db90bc77195799.jpg@128w_170h_1e_1c",
@@ -121,6 +118,20 @@ export default {
                 }
             ]
         }
+    },
+    methods:{
+       async getDetail(id){
+            const {data} = await post("movies/detail",{_id:id}) 
+            console.log(data)           
+            // context.state.hotMovieList = data.data
+            this.movies = data.data[0]
+            this.movies.director = data.data[0].director[0]
+            this.movies.actors = data.data[0].actors[0]
+        }
+    },
+    mounted(){
+        console.log(this.$route.params)
+        this. getDetail(this.$route.params.id)
     }
 }
 </script>
@@ -151,7 +162,7 @@ export default {
             }
             .detail-info{
                 color: #FFF;
-                font-size: 18px;
+                font-size: 16px;
                 p{
                     margin-bottom: 20px;
                 }

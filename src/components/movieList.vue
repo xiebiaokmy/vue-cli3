@@ -4,9 +4,9 @@
             {{title}}
         </div>
         <div class="movieList">
-            <div class="each" v-for="(item,index) in movieList" :key="index" @click="toDetail(item.id)">
-                <img :src='item.url' alt="">
-                <p>{{item.name}}</p>
+            <div class="each" v-for="(item,index) in movieList" :key="index" @click="toDetail(item._id)">
+                <img :src='item.imgs.url' alt="">
+                <p>{{item.cName}}</p>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@ export default {
     },
     methods:{
         toDetail(id){
-            this.$router.push(`/MovieDetail/:${id}`)
+            this.$router.push(`/MovieDetail/${id}`)
         }
     }
 }
@@ -53,6 +53,11 @@ export default {
             p{
                 text-align: center;
                 font-size: 18px;
+            }
+            img{
+                width: 160px;
+                height: auto;
+                vertical-align: middle;
             }
         }
     }
