@@ -6,7 +6,7 @@ import {
     Message
 } from 'iview';
 const service = axios.create({
-  baseURL: "http://localhost:3000/", // 封装请求地址的前缀
+  baseURL: "http://192.168.1.80:3000/", // 封装请求地址的前缀
   timeout: 5000 // 超时时间
 }) 
 service.interceptors.request.use(config => {

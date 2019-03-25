@@ -28,8 +28,7 @@
                                 统计分析
                             </template>
                             <MenuGroup title="电影">
-                                <MenuItem name="3-1">票房TOP10</MenuItem>
-                                <MenuItem name="3-2">好评TOP10</MenuItem>
+                                <MenuItem name="RealTime" to="/RealTime">实时数据</MenuItem>
                             </MenuGroup>
                             <MenuGroup title="影视人">
                                 <MenuItem name="3-4">票房TOP10</MenuItem>

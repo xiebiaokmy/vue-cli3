@@ -48,7 +48,7 @@ export default {
             default: function () {
             return [{
                 name: '销量',
-                type: 'pie',
+                type: 'bar',
                 data: [5, 20, 36, 10, 10, 20]
             }]
             }

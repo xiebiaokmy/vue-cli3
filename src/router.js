@@ -9,7 +9,7 @@ import Hot from './views/movies/hot.vue'
 import ComingSoon from './views/movies/comingSoon.vue'
 import History from './views/movies/history.vue'
 import MovieDetail from './views/movies/movieDetail.vue'
-
+import RealTime from './views/realTime/realTime.vue'
 
 
 import MovieAdmin from './views/admin/movieAdmin.vue'
@@ -54,6 +54,11 @@ const router = new Router({
           path:"/History",
           name:"History",
           component:History
+        },
+        {
+          path:"/RealTime",
+          name:"RealTime",
+          component:RealTime
         },
         {
           path:"/MovieDetail/:id",
