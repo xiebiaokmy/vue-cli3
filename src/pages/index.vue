@@ -41,6 +41,7 @@
                                 后台管理
                             </template>
                             <MenuItem name="MovieAdmin" to="/MovieAdmin">电影管理</MenuItem>                            
+                            <MenuItem name="Drag" to="/Drag">拖拽</MenuItem>                            
                         </Submenu>
                     </Menu>
                 </vuescroll>          

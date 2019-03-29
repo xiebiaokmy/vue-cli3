@@ -13,6 +13,7 @@ import RealTime from './views/realTime/realTime.vue'
 
 
 import MovieAdmin from './views/admin/movieAdmin.vue'
+import Drag from './views/admin/drag.vue'
 Vue.use(Router)
 const router = new Router({
   routes: [
@@ -69,7 +70,12 @@ const router = new Router({
           path:"/MovieAdmin",
           name:"MovieAdmin",
           component:MovieAdmin
-        }
+        },
+        {
+          path:"/Drag",
+          name:"Drag",
+          component:Drag
+        },
       ]
     },
     {
