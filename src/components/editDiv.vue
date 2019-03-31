@@ -38,7 +38,6 @@ import Bus from '../tool/bus.js'
         watch: {
             'value'(){
                 if (!this.isLocked || !this.innerText) {  
-                    console.log("value",this.value)                  
                     this.innerText = this.value;
                 }
             }
@@ -53,7 +52,7 @@ import Bus from '../tool/bus.js'
                 this.isLocked = false
                 if(!this.$el.innerHTML){
                     if(this.type == "radio"){
-                        this.$el.innerText = "单选题"+'<img src="../../assets/drag.png" alt="">'
+                        this.$el.innerText = "单选题"
                         this.innerText = "单选题"                       
                     }else if(this.type == "checkbox"){
                         this.$el.innerText = "多选题"
@@ -61,9 +60,10 @@ import Bus from '../tool/bus.js'
                     }else if(this.type == "qaa"){
                         this.$el.innerText = "问答题"
                         this.innerText = "问答题"
-                    }
-                    this.$emit('input', this.innerText);
-                }       
+                    }                    
+                }  
+                console.log(this.innerText)
+                this.$emit('input', this.$el.innerText);     
             }
         }
     }
@@ -78,6 +78,8 @@ import Bus from '../tool/bus.js'
         user-select: text;
         white-space: pre-wrap;
         text-align: left;
+        border: 1px solid rgb(14,96,224);
+
         &[contenteditable=true]{
             user-modify: read-write-plaintext-only;
             &:empty:before {

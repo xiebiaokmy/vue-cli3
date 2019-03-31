@@ -36,12 +36,36 @@
                         </b>
                     </span>
                 </div>
-                <!-- <SlickList :lockToContainerEdges="true" :useDragHandle="true"  class="list" lockAxis="y" v-model="item.itemArr">                    
+                <SlickList :lockToContainerEdges="true" :useDragHandle="true"  class="list" lockAxis="y" v-model="item.itemArr">                    
                     <SlickItem class="list-item" v-for="(subitem, index) in item.itemArr" :index="index" :key="index">
-                        <div v-handle class="icon handle">
-                            <img src="../../assets/dragIcon.png" alt="">
+                        <div class="sbuInputbox">
+                            <div v-handle class="icon handle">
+                                <img src="../../assets/dragIcon.png" alt="">
+                            </div>
+                            <div class="questionTitle">
+                                <div class="sbuQuestionTitleInput">
+                                    <span class="typeIcon " v-if="item.type == 'radio'">
+                                    <img src="../../assets/minus-circle.png" alt="">
+                                    </span>
+                                    <span class="typeIcon" v-if="item.type == 'checkbox'">
+                                        <img src="../../assets/border.png" alt="">
+                                    </span>
+                                    <div class="sbuEditDiv">
+                                        <EditDiv ref="EditDiv" v-model="subitem.value" :type="item.type">
+
+                                        </EditDiv>
+                                    </div>                                    
+                                </div>
+                                
+                                <span class="operation">                                    
+                                    <b class="delete">
+                                        <img src="../../assets/delete.png" alt="">
+                                    </b>
+                                </span>
+                            </div>
                         </div>
-                        <div class="sbuQuestions">
+                        
+                        <!-- <div class="sbuQuestions">
                             <span class="typeIcon " v-if="item.type == 'radio'">
                                 <img src="../../assets/minus-circle.png" alt="">
                             </span>
@@ -50,9 +74,9 @@
                             </span>
                             <div class="sbuQuestionsInput" contenteditable="true">
                             </div>
-                        </div>
+                        </div> -->
                     </SlickItem>
-                </SlickList> -->
+                </SlickList>
             </SlickItem>
         </SlickList>
     </div>
@@ -95,13 +119,26 @@
     .dragBox{
         width: 600px;        
     }
-    .dragItem{
-        .questionTitle{
-            display: flex
-        }        
-    }
+    .questionTitle{
+        display: flex;
+        height: 46px;
+        line-height: 36px;
+    }  
     .questionTitleInput{
         width: 400px;
+    }
+    .typeIcon img{
+        vertical-align: middle
+    }
+    .sbuInputbox{
+        display: flex;
+        align-items: center;
+    }
+    .sbuQuestionTitleInput{
+        display: flex;
+    }
+    .sbuEditDiv{
+        width: 380px;
     }
     .stylizedHelper {
     background: blue;
@@ -146,11 +183,11 @@ export default {
           type:"radio",
           title:"单选题",
           itemArr: [{
-              value:"",
+              value:"选项1",
           }, {
-              value:"",
+              value:"选项2",
           }, {
-              value:"",
+              value:"选项3",
           }]
         },
         {
@@ -171,10 +208,6 @@ export default {
           title:"问答题",
           itemArr: [{
               value:"",
-          }, {
-              value:"",
-          }, {
-              value:"",
           }]
         }
       ],
@@ -189,6 +222,21 @@ export default {
     },
     getChangeLists (vals) {
       console.log(vals, 'vals')
+      vals.map((item)=>{
+          if(!item.title){
+            switch(item.type)
+            {
+            case "radio":
+            item.title = "单选题"
+            break;
+            case "checkbox":
+            item.title = "多选题"
+            break;
+            case "qaa":
+            item.title = "问答题"
+            }
+          }
+      })
     },    
     changeTitle(){
         console.log("hahah")
